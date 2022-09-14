@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Stats4sd\TeamManagement\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class TeamManagementCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-team-management';
 
     public $description = 'My command';
 
