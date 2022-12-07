@@ -51,14 +51,6 @@ trait HasTeamMemberships
         return $this->belongsToMany(Team::class, 'team_members')->withPivot('is_admin');
     }
 
-    /**
-     * Relation to return all teams the user has created
-     */
-    public function owned_teams(): hasMany
-    {
-        return $this->hasMany(Team::class, 'creator_id');
-    }
-
     public function invitesSent(): HasMany
     {
         return $this->hasMany(Invite::class, 'inviter_id');

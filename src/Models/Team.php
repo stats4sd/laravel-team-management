@@ -58,12 +58,6 @@ class Team extends Model
             ->wherePivot('is_admin', 0);
     }
 
-    // May not need?
-    public function creator(): BelongsTo
-    {
-        return $this->belongsTo(config('team-management.models.user'), 'creator_id');
-    }
-
     public function invites(): HasMany
     {
         return $this->hasMany(Invite::class);
