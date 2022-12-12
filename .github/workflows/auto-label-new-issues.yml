@@ -1,0 +1,17 @@
+name: Auto-label new issues
+
+on:
+  issues:
+    types: [ 'opened' ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Add Triage Label to new issue
+    steps:
+      - uses: Renato66/auto-label@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          ignore-comments: true
+          labels-synonyms: '{"bug":["error","need fix","not working"],"enhancement":["upgrade"],"question":["help"]}'
+          default-labels: '["triage"]'

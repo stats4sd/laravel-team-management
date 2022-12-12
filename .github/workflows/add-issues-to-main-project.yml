@@ -4,7 +4,7 @@ on:
   issues:
     types: [opened, labeled]
 env:
-  GITHUB_TOKEN: ${{ secrets.PROJECT_ACCESS_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   assign_one_project:
@@ -16,14 +16,4 @@ jobs:
       if: github.event.action == 'opened'
       with:
         project: 'https://github.com/orgs/stats4sd/projects/10'
-  build:
-    runs-on: ubuntu-latest
-    name: Add Triage Tag
-    steps:
-      - uses: Renato66/auto-label@v2
-        with:
-          repo-token: ${{ secrets.PROJECT_ACCESS_TOKEN }}
-          ignore-comments: true
-          labels-synonyms: '{"bug":["error","need fix","not working"],"enhancement":["upgrade"],"question":["help"]}'
-          labels-not-allowed: '["good first issue"]'
-          default-labels: '["triage"]'
+
