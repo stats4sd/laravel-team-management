@@ -52,11 +52,12 @@ class TeamMemberController extends Controller
         return redirect()->route('team.show', ['id' => $team->id]);
     }
 
-    public function edit(Team $team, $user)
+    public function edit(Team $team, $userId)
     {
 
+
         //use the relationship to get the pivot attributes for user
-        $user = $team->users->find($user->id);
+        $user = $team->users->find($userId);
 
         return view('team-management::teams.edit-members', ['team' => $team, 'user' => $user]);
     }
@@ -67,11 +68,11 @@ class TeamMemberController extends Controller
      *
      */
 
-    public function update(TeamMemberUpdateRequest $request, Team $team, $user)
+    public function update(TeamMemberUpdateRequest $request, Team $team, $userId)
     {
         $data = $request->validated();
 
-        $team->users()->syncWithoutDetaching([$user->id => ['role' => $data['role']]]);
+        $team->users()->syncWithoutDetaching([$userId => ['is_admin' => $data['is_admin']]]);
 
         return redirect()->route('team.show', ['id' => $team->id]);
     }
@@ -79,17 +80,19 @@ class TeamMemberController extends Controller
     /**
      * Remove a user from the team.
      */
-    public function destroy(Team $team, $user)
+    public function destroy(Team $team, $userId)
     {
         $this->authorize('update', $team);
 
-        $admins = $team->admins()->get();
+        $admins = $team->admins()->get()->pluck('id');
         // if the $user is a $team admin AND is the ONLY team admin... prevent
-        if ($admins->contains($user) && $admins->count() == 1) {
+        if ($admins->contains($userId) && $admins->count() == 1) {
             Alert::add('error', 'User not removed - you must keep at least one team admin to manage your team')->flash();
         } else {
-            $team->users()->detach($user->id);
-            //ShareFormsWithExistingTeamMembers::dispatch($team);
+            $team->users()->detach($userId);
+
+            $user = config('team-management.models.user')::find($userId);
+
             Alert::add('success', 'User ' . $user->name . ' successfully removed from the team')->flash();
         }
 
