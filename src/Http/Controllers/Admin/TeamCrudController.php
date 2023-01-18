@@ -83,6 +83,6 @@ class TeamCrudController extends CrudController
         $org = CRUD::getCurrentEntry();
 
         $this->authorize('view', $org);
-        return view('teams.show', ['team' => $org]);
+        return view('team-management::teams.show', ['team' => $org]);
     }
 }
