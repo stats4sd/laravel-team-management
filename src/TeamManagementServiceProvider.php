@@ -2,12 +2,26 @@
 
 namespace Stats4sd\TeamManagement;
 
+use Illuminate\Support\Facades\Gate;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Stats4sd\TeamManagement\Commands\TeamManagementCommand;
+use Stats4sd\TeamManagement\Models\Team;
+use Stats4sd\TeamManagement\Policies\TeamPolicy;
 
 class TeamManagementServiceProvider extends PackageServiceProvider
 {
+    protected $policies = [
+        Team::class => TeamPolicy::class,
+    ];
+
+public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
+        }
+    }
+
     public function configurePackage(Package $package): void
     {
         /*
@@ -19,5 +33,11 @@ class TeamManagementServiceProvider extends PackageServiceProvider
             ->name('laravel-team-management')
             ->hasConfigFile()
             ->hasViews();
+    }
+
+    public function boot()
+    {
+        $this->registerPolicies();
+        return parent::boot();
     }
 }
