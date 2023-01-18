@@ -12,7 +12,7 @@
                         <th scope="col">Avatar</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Access Type</th>
+                        <th scope="col">Admin</th>
                         @can('update', $team)
                             <th scope="col">Actions</th>
                         @endcan
@@ -31,7 +31,7 @@
 
                             </td>
                             <td>{{ $user->email }}</td>
-                            <td>{{  $user->pivot->role }}</td>
+                            <td>{{  $user->pivot->is_admin ? "Yes" : "No"}}</td>
                             @can('update', $team)
                                 <td>
                                     <a href="{{ route('teammembers.edit', [$team, $user]) }}" class="btn btn-dark btn-sm" name="edit_member{{ $user->id }}" onclick="">EDIT</a>

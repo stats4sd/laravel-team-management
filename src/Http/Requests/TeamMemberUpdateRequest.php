@@ -26,7 +26,7 @@ class TeamMemberUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'role' => ['string'],
+            'is_admin' => ['boolean'],
         ];
     }
 

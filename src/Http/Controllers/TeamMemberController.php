@@ -72,7 +72,7 @@ class TeamMemberController extends Controller
     {
         $data = $request->validated();
 
-        $team->users()->syncWithoutDetaching([$userId => ['role' => $data['role']]]);
+        $team->users()->syncWithoutDetaching([$userId => ['is_admin' => $data['is_admin']]]);
 
         return redirect()->route('team.show', ['id' => $team->id]);
     }

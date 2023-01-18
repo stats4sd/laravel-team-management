@@ -44,13 +44,12 @@
                 <div class="col-md-6">
                     <select
                         id="access-level"
-                        name="role"
+                        name="is_admin"
                         class="select2 form-control @error('name') is-invalid @enderror"
                         value="{{ $user->pivot->is_admin }}"
                         >
-                            <option value="admin" {{ !$user->pivot->admin ? 'selected' : '' }}>Team Administrator</option>
-                            <option value="editor" {{ $user->pivot->editor ? 'selected' : '' }}>Editor</option>
-                            <option value="viewer" {{ $user->pivot->viewer ? 'selected' : '' }}>Viewer</option>
+                            <option value=1 {{ !$user->pivot->is_admin ? 'selected' : '' }}>Team Administrator</option>
+                            <option value=0 {{ $user->pivot->is_admin ? 'selected' : '' }}>Team Member</option>
 
                     </select>
                     @error('users')
