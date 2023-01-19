@@ -6,7 +6,7 @@
 
 @section('content')
 
-@include('team-management::teams.show')
+@include('team-management::teams.header')
 
 <div class="card">
     <div class="card-header">
