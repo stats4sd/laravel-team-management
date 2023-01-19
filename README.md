@@ -49,15 +49,18 @@ You should also add the `HasTeamMemberships` trait to your User model. This trai
 If you use Permission Manager, you should also define the `SITE_ADMIN_ROLE`. Users with this role will have full access to all teams. By default, this is set to `admin`, but if you use a different convention, please add it to your .env file.
 
 ### CRUD Panels
-The package includes 2 crud panels:
- - *TeamCrudController* 
- - *RoleInviteCrudController* 
+The package includes 3 crud panels. The links to these panels are:
+ - **TeamCrudController**: `backpack_url("team")`
+ - **InviteCrudController** `backpack_url("invite")`
+ - **RoleInviteCrudController** `backpack_url("role-invite")`
 
-You can add links to these panels manually in your Backpack sidebar, or run the following command to automatically add links at the bottom of your `resources/views/vendor/backpack/base/inc/sidebar_content.blade.php` file:
+You can run the following command to automatically add links at the bottom of your `resources/views/vendor/backpack/base/inc/sidebar_content.blade.php` file:
 
 ```bash
 php artisan team-management:crud
 ```
+
+You can also manually add those links to your sidebar, or anywhere else in your application.  
 
 ## Package Features
 
