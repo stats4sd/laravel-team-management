@@ -4,12 +4,12 @@
 return [
     'models' => [
         // what is the user model for the platform?
-        'user' => 'App\Models\User',
+        'user' => env('TEAM_MANAGEMENT_USER_MODEL', 'App\Models\User'),
     ],
 
 
     'roles' => [
         //  what is the 'site administrator' role called?
-        'admin' => 'admin',
+        'admin' => env('SITE_ADMIN_ROLE', 'admin'),
     ],
 ];

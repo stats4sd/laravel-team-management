@@ -2,18 +2,17 @@
 
 namespace Stats4sd\TeamManagement\Http\Controllers\Admin;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
-use Stats4sd\TeamManagement\Http\Requests\RoleInviteRequest;
+use Stats4sd\TeamManagement\Http\Requests\InviteRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Stats4sd\TeamManagement\Models\Invite;
 
 /**
- * Class RoleInviteCrudController
+ * Class InviteCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class RoleInviteCrudController extends CrudController
+class InviteCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -28,9 +27,9 @@ class RoleInviteCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\Stats4sd\TeamManagement\Models\RoleInvite::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/role-invite');
-        CRUD::setEntityNameStrings('role invite', 'role invites');
+        CRUD::setModel(Invite::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/invite');
+        CRUD::setEntityNameStrings('invite', 'invites');
     }
 
     /**
@@ -41,11 +40,16 @@ class RoleInviteCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('email')->label('Sent to');
-        CRUD::column('role')->type('relationship')->label('Role invited to');
-        CRUD::column('inviter')->type('relationship')->label('Invited by');
-        CRUD::column('invite_day')->type('date')->label('Invite sent on');
-        CRUD::column('is_confirmed')->type('boolean')->label('Invite Accepted?');
+        CRUD::column('email');
+        CRUD::column('team')->type('relationship');
+        CRUD::column('inviter')->type('relationship');
+        CRUD::column('is_confirmed')->type('boolean');
+
+        /**
+         * Columns can be defined using the fluent syntax or array syntax:
+         * - CRUD::column('price')->type('number');
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
+         */
     }
 
     /**
@@ -56,11 +60,15 @@ class RoleInviteCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
+        CRUD::setValidation(InviteRequest::class);
 
-        CRUD::field('email');
-        CRUD::field('role_id')->type('relationship');
-        CRUD::field('inviter_id')->type('hidden')->default(Auth::user()->id);
-        CRUD::field('token')->type('hidden')->default(Str::random(24));
+
+
+        /**
+         * Fields can be defined using the fluent syntax or array syntax:
+         * - CRUD::field('price')->type('number');
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
+         */
     }
 
     /**

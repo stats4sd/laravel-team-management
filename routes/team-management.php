@@ -2,6 +2,9 @@
 
 // Admin panels from the ODK Link Package:
 use Illuminate\Support\Facades\Route;
+use Stats4sd\TeamManagement\Http\Controllers\Admin\InviteCrudController;
+use Stats4sd\TeamManagement\Http\Controllers\Admin\RoleInviteCrudController;
+use Stats4sd\TeamManagement\Http\Controllers\Admin\TeamCrudController;
 use Stats4sd\TeamManagement\Http\Controllers\TeamMemberController;
 
 Route::group([
@@ -11,6 +14,10 @@ Route::group([
         (array)config('backpack.base.middleware_key', 'admin'),
     ),
 ], function () {
+
+    Route::crud('team', TeamCrudController::class);
+    Route::crud('invite', InviteCrudController::class);
+    Route::crud('role-invite', RoleInviteCrudController::class);
 
     Route::get('team/{team}/members/create', [TeamMemberController::class, 'create'])->name('teammembers.create');
     Route::post('team/{team}/members', [TeamMemberController::class, 'store'])->name('teammembers.store');
