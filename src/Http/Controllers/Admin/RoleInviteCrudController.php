@@ -56,12 +56,17 @@ class RoleInviteCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(RoleInviteRequest::class);
-
         CRUD::field('email');
         CRUD::field('role_id')->type('relationship');
         CRUD::field('inviter_id')->type('hidden')->default(Auth::user()->id);
         CRUD::field('token')->type('hidden')->default(Str::random(24));
+
+        CRUD::setValidation([
+            'email' => 'email|required',
+            'role_id' => 'required',
+            'inviter_id' => 'required',
+            'token' => 'required',
+        ]);
     }
 
     /**
