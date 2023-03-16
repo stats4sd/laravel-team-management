@@ -1,0 +1,11 @@
+
+# Add/remove 'critical' label if issue contains the words 'urgent' or 'critical'
+critical:
+    - '(critical|urgent)'
+bug: 
+    - '(bug|error)'
+enhancement:
+    - '(add|improve|update)'
+# Always add the triage label
+triage:
+    - '(.)'
