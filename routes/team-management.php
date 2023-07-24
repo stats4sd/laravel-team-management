@@ -1,6 +1,6 @@
 <?php
 
-// Admin panels from the ODK Link Package:
+// Admin panels from the Team Management Package:
 use Illuminate\Support\Facades\Route;
 use Stats4sd\TeamManagement\Http\Controllers\Admin\InviteCrudController;
 use Stats4sd\TeamManagement\Http\Controllers\Admin\RoleInviteCrudController;

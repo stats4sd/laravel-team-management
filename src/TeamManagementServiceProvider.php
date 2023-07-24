@@ -35,9 +35,9 @@ class TeamManagementServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasViews()
             ->hasMigrations([
-                '1_create_invites_table',
+                '1_create_teams_table',
                 '2_create_role_invites_table',
-                '3_create_teams_table',
+                '3_create_invites_table',
                 '4_create_team_members_table',
             ])
             ->hasCommand(AddCrudPanelLinksToSidebar::class);
