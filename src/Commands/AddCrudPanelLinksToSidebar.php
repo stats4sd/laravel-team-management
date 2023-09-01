@@ -13,13 +13,18 @@ class AddCrudPanelLinksToSidebar extends Command
 
     public function handle(): int
     {
-        $teamLinkHtml = '<li class="nav-item"><a class="nav-link" href="{{ backpack_url("team") }}"><i class="la la-users nav-icon"></i> Teams</a></li>';
-        $inviteLinkHtml = '<li class="nav-item"><a class="nav-link" href="{{ backpack_url("invite") }}"><i class="la la-envelope nav-icon"></i> Team Invites</a></li>';
-        $roleInviteLinkHtml = '<li class="nav-item"><a class="nav-link" href="{{ backpack_url("role-invite") }}"><i class="la la-envelope nav-icon"></i> Site-wide Invites</a></li>';
 
-        Artisan::call("backpack:add-sidebar-content '$teamLinkHtml'");
-        Artisan::call("backpack:add-sidebar-content '$inviteLinkHtml'");
-        Artisan::call("backpack:add-sidebar-content '$roleInviteLinkHtml'");
+        $teamHeaderHtml = '<x-backpack::menu-separator title="Team Management" />';
+        $teamLinkHtml = '<x-backpack::menu-item title="Teams" icon="la la-users" :link="backpack_url(\\\'team\\\')" />';
+        $inviteLinkHtml = '<x-backpack::menu-item title="Team Invites" icon="la la-envelope" :link="backpack_url(\\\'invite\\\')" />';
+        $roleInviteLinkHtml = '<x-backpack::menu-item title="Site-wide Invites" icon="la la-envelope" :link="backpack_url(\\\'role-invite\\\')" />';
+        $userLinkHtml = '<x-backpack::menu-item title="Users" icon="la la-user" :link="backpack_url(\\\'user\\\')" />';
+
+        Artisan::call("backpack:add-menu-content '$teamHeaderHtml'");
+        Artisan::call("backpack:add-menu-content '$teamLinkHtml'");
+        Artisan::call("backpack:add-menu-content '$inviteLinkHtml'");
+        Artisan::call("backpack:add-menu-content '$roleInviteLinkHtml'");
+        Artisan::call("backpack:add-menu-content '$userLinkHtml'");
 
         return 1;
     }

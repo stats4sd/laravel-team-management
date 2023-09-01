@@ -1,4 +1,4 @@
-<div class="row pl-4 pt-4 w-100">
+<div class="row pl-4 pt-4">
 <div class="col-12 col-xl-12 card">
 <div class="card-header d-flex align-items-flex-end justify-content-between">
     <div>
