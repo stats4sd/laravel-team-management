@@ -14,16 +14,15 @@ class AddCrudPanelLinksToSidebar extends Command
     public function handle(): int
     {
 
-        $teamHeaderHtml = '<x-backpack::menu-separator title="Team Management" />';
-        $teamLinkHtml = '<x-backpack::menu-item title="Teams" icon="la la-users" :link="backpack_url(\\\'team\\\')" />';
-        $inviteLinkHtml = '<x-backpack::menu-item title="Team Invites" icon="la la-envelope" :link="backpack_url(\\\'invite\\\')" />';
-        $roleInviteLinkHtml = '<x-backpack::menu-item title="Site-wide Invites" icon="la la-envelope" :link="backpack_url(\\\'role-invite\\\')" />';
+        $teamDropdownHtml = '<x-backpack::menu-dropdown title="Authentication" icon="la la-group">
+    <x-backpack::menu-dropdown-item title="Users" icon="la la-user" :link="backpack_url(\\\'user\\\')" />
+    <x-backpack::menu-dropdown-item title="Roles" icon="la la-group" :link="backpack_url(\\\'role\\\')" />
+    <x-backpack::menu-dropdown-item title="Permissions" icon="la la-key" :link="backpack_url(\\\'permission\\\')" />
+</x-backpack::menu-dropdown>';
+
         $userLinkHtml = '<x-backpack::menu-item title="Users" icon="la la-user" :link="backpack_url(\\\'user\\\')" />';
 
-        Artisan::call("backpack:add-menu-content '$teamHeaderHtml'");
-        Artisan::call("backpack:add-menu-content '$teamLinkHtml'");
-        Artisan::call("backpack:add-menu-content '$inviteLinkHtml'");
-        Artisan::call("backpack:add-menu-content '$roleInviteLinkHtml'");
+        Artisan::call("backpack:add-menu-content '$teamDropdownHtml'");
         Artisan::call("backpack:add-menu-content '$userLinkHtml'");
 
         return 1;
