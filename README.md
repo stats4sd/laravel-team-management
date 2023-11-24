@@ -75,11 +75,13 @@ The TeamCrudController provides the basic pages required to:
 - Create a new team.
 - Edit an existing team.
 - Manage the team members (via the 'preview' link). This uses the Backpack 'show' operation with a custom blade template. From this page, you can invite or add new members, set existing members as team admins or regular members, or remove users from the team. 
-![](documentation/screenshots/CleanShot 2023-01-19 at 13.55.12.png)
+![](https://github.com/stats4sd/laravel-team-management/assets/5711101/c0a6439b-cedb-49f7-8d1c-82762294f03a)
+
 
 ### Invite Users to a Team
 
-![](documentation/screenshots/CleanShot 2023-01-19 at 14.01.31.png)
+![](https://github.com/stats4sd/laravel-team-management/assets/5711101/dc52bf90-b0c2-46c1-b651-bf6a7b6d83e6)
+
 
 The invite members form has 2 ways to add members. You can search the existing application users and add them directly, or you can send an email invite to people outside of the platform. You can add as many email addresses as you want to the form, and each address will be emailed separately. 
 
@@ -108,7 +110,7 @@ You may also wish to invite users to your application without assigning them to 
     
 ## Credits
 
-- [Dave Mills](https://github.com/stats4sd)
+- [Stats4SD](https://github.com/stats4sd)
 - [All Contributors](../../contributors)
 
 ## License
