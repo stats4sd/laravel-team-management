@@ -1,45 +1,45 @@
 <div class="row pt-4 pl-4">
     <div class="card col-12">
         <div class="card-header">
-        <h2>Organisation Members</h2>
+            <h2>Organisation Members</h2>
         </div>
 
         <div class="card-body">
 
             <table class="table table-striped">
                 <thead>
-                    <tr>
-                        <th scope="col">Avatar</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Admin</th>
-                        @can('update', $team)
-                            <th scope="col">Actions</th>
-                        @endcan
-                    </tr>
+                <tr>
+                    <th scope="col">Avatar</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Admin</th>
+                    @can('update', $team)
+                        <th scope="col">Actions</th>
+                    @endcan
+                </tr>
                 </thead>
                 <tbody>
-                        @foreach($team->users as $user)
-                        <tr>
+                @foreach($team->users as $user)
+                    <tr>
+                        <td>
+                            <img src="{{ $user->avatar_url }}" alt="{{ $user->name }} avatar" height="50px">
+
+                        </td>
+                        <td>
+
+                            {{ $user->name }}
+
+                        </td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{  $user->pivot->is_admin ? "Yes" : "No"}}</td>
+                        @can('update', $team)
                             <td>
-                                    <img src="{{ $user->avatar_url }}" alt="{{ $user->name }} avatar" height="50px">
-
+                                <a href="{{ route('teammembers.edit', [$team, $user]) }}" class="btn btn-dark btn-sm" name="edit_member{{ $user->id }}" onclick="">EDIT</a>
+                                <button class="btn btn-dark btn-sm remove-button" data-user="{{ $user->id }}" data-bs-toggle="modal" data-bs-target="#removeUserModal{{ $user->id }}">REMOVE</button>
                             </td>
-                            <td>
-
-                                    {{ $user->name }}
-
-                            </td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{  $user->pivot->is_admin ? "Yes" : "No"}}</td>
-                            @can('update', $team)
-                                <td>
-                                    <a href="{{ route('teammembers.edit', [$team, $user]) }}" class="btn btn-dark btn-sm" name="edit_member{{ $user->id }}" onclick="">EDIT</a>
-                                    <button class="btn btn-dark btn-sm remove-button" data-user="{{ $user->id }}" data-toggle="modal" data-target="#removeUserModal{{ $user->id }}">REMOVE</button>
-                                </td>
-                            @endcan
-                        </tr>
-                        @endforeach
+                        @endcan
+                    </tr>
+                @endforeach
 
                 </tbody>
             </table>
@@ -61,29 +61,27 @@
 </div>
 
 @push('after_scripts')
-@foreach($team->users as $user)
-<div class="modal fade" id="removeUserModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="removeUserModalLabel{{ $user->id }}" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="removeUserModalLabel{{ $user->id }}">Remove {{ $user->email }} from {{ $team->name }}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Are you sure you wish to remove {{ $user->name }} from {{ $team->name }}?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <form action="{{ route('teammembers.destroy', [$team, $user]) }}" method="POST">
-            @csrf
-            @method('delete')
-            <button type="submit" class="btn btn-primary">Confirm Remove</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-@endforeach
+    @foreach($team->users as $user)
+        <div class="modal fade" id="removeUserModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="removeUserModalLabel{{ $user->id }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="removeUserModalLabel{{ $user->id }}">Remove {{ $user->email }} from {{ $team->name }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you wish to remove {{ $user->name }} from {{ $team->name }}?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <form action="{{ route('teammembers.destroy', [$team, $user]) }}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-primary">Confirm Remove</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endpush
