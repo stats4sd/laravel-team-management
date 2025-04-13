@@ -17,6 +17,14 @@ You can install the package via composer:
 composer require stats4sd/laravel-team-management
 ```
 
+The package requires the tables setup by Spatie's Permission Manager package. If you have not already done so: 
+
+- publish the permission manager migrations: `php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"`
+- add the required trait to your User model: `use HasRoles;`
+
+(Full instructions: https://spatie.be/docs/laravel-permission/v5/installation-laravel)
+
+
 You can publish and run the migrations with:
 
 ```bash
